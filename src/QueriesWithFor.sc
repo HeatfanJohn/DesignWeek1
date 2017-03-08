@@ -12,9 +12,6 @@ val books: List[Book] = List(
   Book(title = "Programming in Scala",
     authors = List("Odersky, Martin", "Spoon, Lex", "Venners, Bill")))
 
-for (b <- books; a <- b.authors if a startsWith "Bird,")
-  yield b.title
-
 for (b <- books if b.title.indexOf("Program") >= 0)
   yield b.title
 
@@ -39,3 +36,12 @@ for {
   a2 <- b2.authors
   if a1 == a2
 } yield a1
+
+for (b <- books; a <- b.authors if a startsWith "Bird,")
+  yield b.title
+
+books flatMap( b=> for( a <- b.authors withFilter( a=>a.startsWith("Bird"))) yield b.title)
+
+books flatMap( b=>b.authors withFilter( a=>a startsWith "Bird") map( y=>y.toString ))
+
+books.flatMap( b=>b.authors.withFilter( a=>a.startsWith("Bird") ).map( y=>y.toString ))
