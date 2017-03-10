@@ -40,8 +40,8 @@ for {
 for (b <- books; a <- b.authors if a startsWith "Bird,")
   yield b.title
 
-books flatMap( b=> for( a <- b.authors withFilter( a=>a.startsWith("Bird"))) yield b.title)
+books flatMap( b=> for( _ <- b.authors withFilter( a=>a.startsWith("Bird"))) yield b.title )
 
 books flatMap( b=>b.authors withFilter( a=>a startsWith "Bird") map( y=>y.toString ))
 
-books.flatMap( b=>b.authors.withFilter( a=>a.startsWith("Bird") ).map( y=>y.toString ))
+books.flatMap( b=>b.authors.withFilter( a=>a.startsWith("Bird") ).map( _=>b.title ))
